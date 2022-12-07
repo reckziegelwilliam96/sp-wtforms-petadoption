@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %} Pet Details {% endblock %}
+
+{% block content %} 
+<div class="container mt-5" data-pet-id="{{ pet.id }}">
+    <h3>{{ pet.name }}</h3>
+    {% if photo_url %}
+    <img src="{{ pet.photo_url }}">
+    {% endif %}
+    <p>Species: {{ pet.species }}</p>
+    {% if age %}
+    <p>Age: {{ pet.age }}</p>
+    {% endif %}
+    <p>Notes: {{ pet.notes }}</p>
+</div>
+
+<div class="container mt-5">
+    <form id="pet-edit-form" methods="POST">
+        {{ form.hidden_tag() }}
+
+        {% for field in form
+                if field.widget.input_type != 'hidden' %}
+
+            <p>
+                {{ field.label }}
+                {{ field }}
+
+                {% for error in field.errors %}
+                    {{ error }}
+                {% endfor %}
+            </p>
+        {% endfor %}
+        <button class="btn btn-primary"type="submit">Update</button>
+    </form>
+</div>
+{% endblock %}

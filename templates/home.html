@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} Pet Adoption Agency - Home {% endblock %}
+
+{% block content %}
+<h1 class="container mt-5">Pets</h1>
+<div class="container mt-5">
+    <ul class="pets-list">
+        {% for pet in pets %}
+        <div data-pet-id={{ pet.id }}>
+            <img class="pet-img" src={{ pet.photo_url }}>
+            <div class="pet-description">
+            <p> Name:  <a href="/{{ pet.id }}">{{ pet.name }}</a> | Species: {{ pet.species }} | Age: {{ pet.age }}
+            {% if pet.available %}
+            <b>Available</b>
+            {% endif %}
+            </p>
+            </div>
+        </div>
+        {% endfor %}
+    </ul>
+</div>
+<div class="container mt-5">
+    <form action="/add" method="GET">
+        <button class="btn btn-primary" type="submit">Add Pet</button>
+    </form>
+</div>
+{% endblock %}
